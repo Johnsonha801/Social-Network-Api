@@ -2,7 +2,7 @@ const { Thought, User } = require('../models');
 
 const thoughtController = {
   // get all thoughts
-  getThoughts(req, res) {
+  getAllThoughts(req, res) {
     Thought.find()
       .sort({ createdAt: -1 })
       .then((dbThoughtData) => {
@@ -91,7 +91,7 @@ const thoughtController = {
   },
 
   // add a reaction to a thought
-  addReaction(req, res) {
+  createReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
       { $addToSet: { reactions: req.body } },
@@ -109,7 +109,7 @@ const thoughtController = {
       });
   },
   // remove reaction from a thought
-  removeReaction(req, res) {
+  deleteReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
       { $pull: { reactions: { reactionId: req.params.reactionId } } },
